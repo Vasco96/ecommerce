@@ -9,6 +9,6 @@ use Illuminate\View\View;
 class VendorController extends Controller
 {
     function dashboard() : View {
-        return view('vendor.dashboard');
+        return view('vendor.dashboard.dashboard');
     }
 }
