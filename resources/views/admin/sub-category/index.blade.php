@@ -40,6 +40,7 @@
                     method: 'PUT',
                     url: "{{ route('admin.sub-category.change-status') }}",
                     data: {
+                        "_token": "{{ csrf_token() }}",
                         status: isChecked,
                         id: id
                     },

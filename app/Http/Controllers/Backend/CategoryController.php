@@ -45,7 +45,7 @@ class CategoryController extends Controller
 
         $category->icon = $request->icon;
         $category->name = $request->name;
-        $category->slug = Str::slug($request->name);
+        $category->slug = generateUniqueSlug('Category', $request->name);
         $category->status = $request->status;
         $category->save();
 
@@ -87,7 +87,7 @@ class CategoryController extends Controller
 
         $category->icon = $request->icon;
         $category->name = $request->name;
-        $category->slug = Str::slug($request->name);
+        $category->slug = generateUniqueSlug('Category', $request->name);
         $category->status = $request->status;
         $category->save();
 

@@ -46,7 +46,7 @@ class SubCategoryController extends Controller
 
         $subCategory->category_id = $request->category;
         $subCategory->name = $request->name;
-        $subCategory->slug = Str::slug($request->name);
+        $subCategory->slug = generateUniqueSlug('SubCategory', $request->name);
         $subCategory->status = $request->status;
         $subCategory->save();
 
@@ -89,7 +89,7 @@ class SubCategoryController extends Controller
 
         $subCategory->category_id = $request->category;
         $subCategory->name = $request->name;
-        $subCategory->slug = Str::slug($request->name);
+        $subCategory->slug = generateUniqueSlug('SubCategory', $request->name);
         $subCategory->status = $request->status;
         $subCategory->save();
 

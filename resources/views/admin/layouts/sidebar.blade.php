@@ -8,23 +8,49 @@
         </div>
         <ul class="sidebar-menu">
             <li class="menu-header">Dashboard</li>
-            <li class="dropdown active">
-                <a href="{{ route('admin.dashboard') }}" class="nav-link"><i class="fas fa-fire"></i><span>Dashboard</span></a>
+            <li class="dropdown {{ setSidebarActive(['admin.dashboard']) }}">
+                <a href="{{ route('admin.dashboard') }}" class="nav-link"><i
+                        class="fas fa-fire"></i><span>Dashboard</span></a>
             </li>
             <li class="menu-header">Starter</li>
-            <li class="dropdown">
+            <li
+                class="dropdown {{ setSidebarActive(['admin.category.*', 'admin.subcategory.*', 'admin.childcategory.*']) }}">
                 <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-columns"></i>
                     <span>Manage Categories</span></a>
                 <ul class="dropdown-menu">
-                    <li><a class="nav-link" href="{{ route('admin.category.index') }}">Category</a></li>
-                    <li><a class="nav-link" href="{{ route('admin.subcategory.index') }}">Subcategory</a></li>
+                    <li class="{{ setSidebarActive(['admin.category.*']) }}"><a class="nav-link"
+                            href="{{ route('admin.category.index') }}">Category</a></li>
+                    <li class="{{ setSidebarActive(['admin.subcategory.*']) }}"><a class="nav-link"
+                            href="{{ route('admin.subcategory.index') }}">Sub Category</a></li>
+                    <li class="{{ setSidebarActive(['admin.childcategory.*']) }}"><a class="nav-link"
+                            href="{{ route('admin.childcategory.index') }}">Child Category</a></li>
                 </ul>
             </li>
-            <li class="dropdown">
+            <li class="dropdown {{ setSidebarActive([
+                'admin.brand.*',
+                ]) }}">
+                <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-columns"></i>
+                    <span>Manage Products</span></a>
+                <ul class="dropdown-menu">
+                    <li class="{{ setSidebarActive(['admin.brand.*']) }}"><a class="nav-link" href="{{ route('admin.brand.index') }}">Brands</a></li>
+                    <li class="{{ setSidebarActive(['admin.brand.*']) }}"><a class="nav-link" href="{{ route('admin.brand.index') }}">Products</a></li>
+                </ul>
+            </li>
+            <li class="dropdown {{ setSidebarActive([
+                'admin.vendor-profile.index'
+                ]) }}">
+                <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-columns"></i>
+                    <span>Ecommerce</span></a>
+                <ul class="dropdown-menu">
+                    <li class="{{ setSidebarActive(['admin.vendor-profile.index']) }}"><a class="nav-link" href="{{ route('admin.vendor-profile.index') }}">Vendor Profile</a></li>
+                </ul>
+            </li>
+            <li class="dropdown {{ setSidebarActive(['admin.slider.*']) }}">
                 <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-columns"></i>
                     <span>Manage Website</span></a>
                 <ul class="dropdown-menu">
-                    <li><a class="nav-link" href="{{ route('admin.slider.index') }}">Slider</a></li>
+                    <li class="{{ setSidebarActive(['admin.slider.*']) }}"><a class="nav-link"
+                            href="{{ route('admin.slider.index') }}">Slider</a></li>
                 </ul>
             </li>
             {{-- <li class="dropdown">
@@ -36,7 +62,7 @@
                     <li><a class="nav-link" href="layout-top-navigation.html">Top Navigation</a></li>
                 </ul>
             </li>
-            <li><a class="nav-link" href="blank.html"><i class="far fa-square"></i> <span>Blank Page</span></a></li>--}}
+            <li><a class="nav-link" href="blank.html"><i class="far fa-square"></i> <span>Blank Page</span></a></li> --}}
 
         </ul>
     </aside>

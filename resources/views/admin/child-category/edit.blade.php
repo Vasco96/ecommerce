@@ -3,7 +3,7 @@
 @section('content')
     <section class="section">
         <div class="section-header">
-            <h1>Sub Category</h1>
+            <h1>Child Category</h1>
         </div>
 
         <div class="section-body">
@@ -13,30 +13,39 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header">
-                            <h4>Update Sub Category</h4>
+                            <h4>Update Child Category</h4>
                         </div>
                         <div class="card-body">
-                            <form action="{{ route('admin.subcategory.update', $subCategory->id) }}" method="POST" enctype="multipart/form-data">
+                            <form action="{{ route('admin.childcategory.update', $childCategory->id) }}" method="POST" enctype="multipart/form-data">
                                 @csrf
                                 @method('PUT')
                                 <div class="form-group">
                                     <label>Category</label>
-                                    <select class="form-control" name="category" >
+                                    <select class="form-control main-category" name="category" >
                                         <option value="">Select...</option>
                                         @foreach ($categories as $category)
-                                        <option @selected($category->id === $subCategory->category_id) value="{{ $category->id }}">{{ $category->name }}</option>
+                                        <option @selected($category->id === $childCategory->category_id) value="{{ $category->id }}">{{ $category->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Sub Category</label>
+                                    <select class="form-control sub-category" name="sub_category" >
+                                        <option value="">Select...</option>
+                                        @foreach ($subCategories as $subCategory)
+                                        <option @selected($subCategory->id === $childCategory->sub_category_id) value="{{ $subCategory->id }}">{{ $subCategory->name }}</option>
                                         @endforeach
                                     </select>
                                 </div>
                                 <div class="form-group">
                                     <label>Name</label>
-                                    <input type="text" class="form-control" name="name" value="{{ @$subCategory->name }}">
+                                    <input type="text" class="form-control" name="name" value="{{ @$childCategory->name }}">
                                 </div>
                                 <div class="form-group">
                                     <label>Status</label>
                                     <select class="form-control" name="status" >
-                                        <option @selected(@$subCategory->status === 1) value="1">Active</option>
-                                        <option @selected(@$subCategory->status === 0)  value="0">Inactive</option>
+                                        <option @selected(@$childCategory->status === 1) value="1">Active</option>
+                                        <option @selected(@$childCategory->status === 0)  value="0">Inactive</option>
                                     </select>
                                 </div>
 

@@ -3,7 +3,6 @@
 /** Create unique slug */
 
 use PhpParser\Node\Stmt\TryCatch;
-use Str;
 
 if (!function_exists('generateUniqueSlug')) {
     function generateUniqueSlug($model, $name): string
@@ -25,7 +24,7 @@ if (!function_exists('generateUniqueSlug')) {
         return $slug;
     }
 }
-
+/**
 if (!function_exists('currencyPosition')) {
     function currencyPosition($price): string
     {
@@ -35,7 +34,7 @@ if (!function_exists('currencyPosition')) {
             return $price . config('settings.site_currency_icon');
         }
     }
-}
+}*/
 
 /** Calculate cart total price */
 
@@ -82,7 +81,7 @@ if (!function_exists('currencyPosition')) {
 
 /** Grand cart total price */
 
-if (!function_exists('grandCartTotal')) {
+/**if (!function_exists('grandCartTotal')) {
     function grandCartTotal($deliveryFee = 0)
     {
         $total = 0;
@@ -100,11 +99,11 @@ if (!function_exists('grandCartTotal')) {
 
         return $total;
     }
-}
+}*/
 
 /** Generate invoice id */
 
-if (!function_exists('generateInvoiceId')) {
+/**if (!function_exists('generateInvoiceId')) {
     function generateInvoiceId()
     {
         $randomNumber = rand(1, 9999);
@@ -113,30 +112,30 @@ if (!function_exists('generateInvoiceId')) {
         $invoiceId = $randomNumber . $currentDateTime->format('yd') . $currentDateTime->format('s');
         return $invoiceId;
     }
-}
+}*/
 
 /** Get product discount in percent */
 
-if (!function_exists('discountInPercent')) {
+/**if (!function_exists('discountInPercent')) {
     function discountInPercent($originalPrice, $discountPrice)
     {
         $result =  (($originalPrice - $discountPrice) / $originalPrice) * 100;
         return round($result, 2);
     }
-}
+}*/
 
 /** Truncate the string */
 
-if (!function_exists('truncate')) {
+/**if (!function_exists('truncate')) {
     function truncate($string, int $limit = 100)
     {
         return \Str::limit($string, $limit, '...');
     }
-}
+}*/
 
 /** getYtThumbnail the string */
 
-if (!function_exists('getYtThumbnail')) {
+/**if (!function_exists('getYtThumbnail')) {
     function getYtThumbnail($link, $size = 'medium')
     {
         try {
@@ -155,7 +154,7 @@ if (!function_exists('getYtThumbnail')) {
             return null;
         }
     }
-}
+}*/
 
 /** set Sidebar Active */
 
