@@ -15,8 +15,8 @@ return new class extends Migration
             $table->id();
             $table->foreignId('vendor_id');
             $table->foreignId('category_id')->constrained('categories')->onDelete('cascade');
-            $table->foreignId('sub_category_id')->constrained('sub_categories')->onDelete('cascade')->default(0);
-            $table->foreignId('child_category_id')->constrained('child_categories')->onDelete('cascade')->default(0);
+            $table->foreignId('sub_category_id')->constrained('sub_categories')->onDelete('cascade')->nullable();
+            $table->foreignId('child_category_id')->constrained('child_categories')->onDelete('cascade')->nullable();
             $table->foreignId('brand_id')->constrained('brands')->onDelete('cascade');
             $table->string('name');
             $table->string('slug');
@@ -30,9 +30,7 @@ return new class extends Migration
             $table->double('offer_price')->nullable();
             $table->date('offer_start_date')->nullable();
             $table->date('offer_end_date')->nullable();
-            $table->boolean('is_top')->nullable();
-            $table->boolean('is_best')->nullable();
-            $table->boolean('is_featured')->nullable();
+            $table->string('product_type')->nullable();
             $table->integer('is_approved')->default(0);
             $table->boolean('status');
             $table->string('seo_title');
