@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 
-class AdminVendorProfileController extends Controller
+class VendorShopProfileController extends Controller
 {
     use ImageUploadTrait;
     /**
@@ -18,7 +18,7 @@ class AdminVendorProfileController extends Controller
     public function index() : View
     {
         $profile = Vendor::where('user_id', Auth::user()->id)->first();
-        return view('admin.vendor-profile.index', compact('profile'));
+        return view('vendor.shop-profile.index', compact('profile'));
     }
 
     /**
@@ -64,7 +64,7 @@ class AdminVendorProfileController extends Controller
 
         toastr('Vendor Updated Successfully!', 'success');
 
-        return redirect()->route('admin.vendor-profile.index');;
+        return redirect()->route('vendor.shop-profile.index');
     }
 
     /**

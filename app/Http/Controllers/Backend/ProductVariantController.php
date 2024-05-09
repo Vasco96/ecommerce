@@ -6,6 +6,7 @@ use App\DataTables\ProductVariantDataTable;
 use App\Http\Controllers\Controller;
 use App\Models\Product;
 use App\Models\ProductVariant;
+use App\Models\ProductVariantItem;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -95,6 +96,10 @@ class ProductVariantController extends Controller
     {
         try {
             $productVariant = ProductVariant::findOrFail($id);
+            $variantItemCheck = ProductVariantItem::where('product_variant_id', $productVariant->id)->count();
+            if($variantItemCheck>0){
+                return response(['status' => 'error', 'message' => 'This variant contain variant items, delete items first for delete this variant']);
+            }
             $productVariant->delete();
             return response(['status' => 'success', 'message' => 'Variant Deleted Successfully']);
         } catch (\Exception $e) {
