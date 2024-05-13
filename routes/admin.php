@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Backend\AdminController;
+use App\Http\Controllers\Backend\AdminVendorProductController;
 use App\Http\Controllers\Backend\AdminVendorProfileController;
 use App\Http\Controllers\Backend\BrandController;
 use App\Http\Controllers\Backend\CategoryController;
@@ -63,6 +64,9 @@ Route::post('products-variant-item/store', [ProductVariantItemController::class,
 Route::get('products-variant-item-edit/{variantItemId}', [ProductVariantItemController::class, 'edit'])->name('products-variant-item.edit');
 Route::put('products-variant-item-update/{variantItemId}', [ProductVariantItemController::class, 'update'])->name('products-variant-item.update');
 Route::delete('products-variant-item/{variantItemId}', [ProductVariantItemController::class, 'destroy'])->name('products-variant-item.destroy');
+
+/** Vendor product routes */
+Route::get('vendor-products', [AdminVendorProductController::class, 'index'])->name('vendor-products.index');
 
 
 

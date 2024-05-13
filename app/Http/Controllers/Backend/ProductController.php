@@ -8,6 +8,7 @@ use App\Models\Brand;
 use App\Models\Category;
 use App\Models\ChildCategory;
 use App\Models\Product;
+use App\Models\ProductImageGallery;
 use App\Models\SubCategory;
 use App\Traits\ImageUploadTrait;
 use Illuminate\Http\JsonResponse;
@@ -173,7 +174,13 @@ class ProductController extends Controller
     {
         try {
             $product = Product::findOrFail($id);
+            
             $this->deleteImage($product->thumb_image);
+
+            $galleryImages = ProductImageGallery::where('product_id', $product->id)->get();
+            foreach($galleryImages as $image){
+                $this->deleteImage($image->image);
+            }
             $product->delete();
             return response(['status' => 'success', 'message' => 'Product Deleted Successfully']);
         } catch (\Exception $e) {

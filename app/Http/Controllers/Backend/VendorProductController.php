@@ -8,6 +8,7 @@ use App\Models\Brand;
 use App\Models\Category;
 use App\Models\ChildCategory;
 use App\Models\Product;
+use App\Models\ProductImageGallery;
 use App\Models\SubCategory;
 use App\Traits\ImageUploadTrait;
 use Illuminate\Http\JsonResponse;
@@ -177,7 +178,21 @@ class VendorProductController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        try {
+            $product = Product::findOrFail($id);
+            if($product->vendor_id != Auth::user()->vendor->id){
+                abort(404);
+            }
+            $this->deleteImage($product->thumb_image);
+            $galleryImages = ProductImageGallery::where('product_id', $product->id)->get();
+            foreach($galleryImages as $image){
+                $this->deleteImage($image->image);
+            }
+            $product->delete();
+            return response(['status' => 'success', 'message' => 'Product Deleted Successfully']);
+        } catch (\Exception $e) {
+            return response(['status' => 'error', 'message' => 'Something went wrong']);
+        }
     }
 
     /** Get all subcategories */
@@ -192,5 +207,17 @@ class VendorProductController extends Controller
     public function getChildCategories(Request $request){
         $childCategories = ChildCategory::where('sub_category_id', $request->id)->where('status', 1)->get();
         return $childCategories;
+    }
+
+    public function changeStatus(Request $request){
+        try {
+        $product = Product::findOrFail($request->id);
+        $product->status = $request->status == 'true' ? 1 : 0;
+        $product->save();
+
+        return response(['status' => 'success', 'message' => 'Status has been updated!']);
+        }catch (\Exception $e) {
+            return response(['status' => 'error', 'message' => 'Something went wrong']);
+        }
     }
 }

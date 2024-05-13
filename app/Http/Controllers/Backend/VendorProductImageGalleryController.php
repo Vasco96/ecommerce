@@ -3,22 +3,27 @@
 namespace App\Http\Controllers\Backend;
 
 use App\DataTables\ProductImageGalleryDataTable;
+use App\DataTables\VendorProductImageGalleryDataTable;
 use App\Http\Controllers\Controller;
 use App\Models\Product;
 use App\Models\ProductImageGallery;
 use App\Traits\ImageUploadTrait;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
-class ProductImageGalleryController extends Controller
+class VendorProductImageGalleryController extends Controller
 {
     use ImageUploadTrait;
     /**
      * Display a listing of the resource.
      */
-    public function index(Request $request, ProductImageGalleryDataTable $dataTable)
+    public function index(Request $request, VendorProductImageGalleryDataTable $dataTable)
     {
         $product = Product::findOrFail($request->product);
-        return $dataTable->render('admin.product.image-gallery.index', compact('product'));
+        if($product->vendor_id != Auth::user()->vendor->id){
+            abort(404);
+        }
+        return $dataTable->render('vendor.product.image-gallery.index', compact('product'));
     }
 
     /**
@@ -86,6 +91,9 @@ class ProductImageGalleryController extends Controller
     {
         try {
             $productImageGallery = ProductImageGallery::findOrFail($id);
+            if($productImageGallery->product->vendor_id != Auth::user()->vendor->id){
+                abort(404);
+            }
             $this->deleteImage($productImageGallery->image);
             $productImageGallery->delete();
             return response(['status' => 'success', 'message' => 'Image Deleted Successfully']);

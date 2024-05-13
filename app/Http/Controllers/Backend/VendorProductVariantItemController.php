@@ -2,28 +2,29 @@
 
 namespace App\Http\Controllers\Backend;
 
-use App\DataTables\ProductVariantItemDataTable;
+use App\DataTables\VendorProductVariantItemDataTable;
 use App\Http\Controllers\Controller;
 use App\Models\Product;
 use App\Models\ProductVariant;
 use App\Models\ProductVariantItem;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 
-class ProductVariantItemController extends Controller
+class VendorProductVariantItemController extends Controller
 {
-    function index(ProductVariantItemDataTable $dataTable, $productId, $variantId) : View|JsonResponse
+    function index(VendorProductVariantItemDataTable $dataTable, $productId, $variantId) : View|JsonResponse
     {
         $product = Product::findOrFail($productId);
         $productVariant = ProductVariant::findOrFail($variantId);
-        return $dataTable->render('admin.product.variant-item.index', compact('product', 'productVariant'));
+        return $dataTable->render('vendor.product.variant-item.index', compact('product', 'productVariant'));
     }
 
     function create( string $productId, string $variantId){
         $variant = ProductVariant::findOrFail($variantId);
         $product = Product::findOrFail($productId);
-        return view('admin.product.variant-item.create', compact('variant', 'product'));
+        return view('vendor.product.variant-item.create', compact('variant', 'product'));
     }
 
     function store(Request $request){
@@ -47,13 +48,13 @@ class ProductVariantItemController extends Controller
 
         toastr('Variant Item Created Successfully!', 'success');
 
-        return redirect()->route('admin.products-variant-item.index', ['productId' => $request->product_id, 'variantId' => $request->variant_id]);
+        return redirect()->route('vendor.products-variant-item.index', ['productId' => $request->product_id, 'variantId' => $request->variant_id]);
     }
 
     public function edit(string $variantItemId)
     {
         $variantItem = ProductVariantItem::findOrFail($variantItemId);
-        return view('admin.product.variant-item.edit', compact('variantItem'));
+        return view('vendor.product.variant-item.edit', compact('variantItem'));
     }
 
     public function update(Request $request, string $id)
@@ -75,7 +76,7 @@ class ProductVariantItemController extends Controller
 
         toastr('Variant Item Updated Successfully!', 'success');
 
-        return redirect()->route('admin.products-variant-item.index', ['productId' => $variantItem->productVariant->product_id, 'variantId' => $variantItem->product_variant_id]);
+        return redirect()->route('vendor.products-variant-item.index', ['productId' => $variantItem->productVariant->product_id, 'variantId' => $variantItem->product_variant_id]);
     }
 
     /**

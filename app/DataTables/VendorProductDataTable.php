@@ -26,16 +26,17 @@ class VendorProductDataTable extends DataTable
         ->addColumn('action', function ($query) {
             $editBtn = "<a href='" . route('vendor.products.edit', $query->id) . "' class='btn btn-primary'><i class='far fa-edit'></i></a>";
             $deleteBtn = "<a href='" . route('vendor.products.destroy', $query->id) . "' class='btn btn-danger ml-2 delete-item'><i class='far fa-trash-alt'></i></a>";
-            $moreBtn = '<div class="dropdown dropleft d-inline">
-            <button class="btn btn-primary dropdown-toggle ml-1" type="button" id="dropdownMenuButton2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <i class="fas fa-cog"></i>
-            </button>
-            <div class="dropdown-menu">
-              <a class="dropdown-item has-icon" href="'.route('admin.products-image-gallery.index', ['product' => $query->id]).'"><i class="far fa-heart"></i> Image Gallery</a>
-              <a class="dropdown-item has-icon" href="'.route('admin.products-variant.index', ['product' => $query->id]).'"><i class="far fa-file"></i> Variants</a>
-              <a class="dropdown-item has-icon" href="#"><i class="far fa-clock"></i> Something else here</a>
-            </div>
-          </div>';
+
+          $moreBtn = '<div class="btn-group dropstart" style="margin-left:4px;">
+                        <button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="fas fa-cog"></i>
+                        </button>
+                        <ul class="dropdown-menu">
+                        <li><a class="dropdown-item has-icon" href="'.route('vendor.products-image-gallery.index', ['product' => $query->id]).'"> Image Gallery</a></li>
+                        <li><a class="dropdown-item has-icon" href="'.route('vendor.products-variant.index', ['product' => $query->id]).'"> Variants</a></li>
+
+                        </ul>
+                    </div>';
             return $editBtn . $deleteBtn. $moreBtn;
         })
         ->addColumn('image', function ($query) {
@@ -74,7 +75,15 @@ class VendorProductDataTable extends DataTable
             }
             return $button;
         })
-        ->rawColumns(['action', 'image', 'type', 'status'])
+        ->addColumn('approved', function ($query) {
+            if ($query->is_approved == 1) {
+
+                return '<i class="badge bg-success">Approved</i>';
+            } else {
+                return '<i class="badge bg-warning">Pending</i>';
+            }
+        })
+        ->rawColumns(['action', 'image', 'type', 'status', 'approved'])
         ->setRowId('id');
     }
 
@@ -118,6 +127,7 @@ class VendorProductDataTable extends DataTable
             Column::make('image')->width(200),
             Column::make('name'),
             Column::make('price'),
+            Column::make('approved'),
             Column::make('type')->width(150),
             Column::make('status')->width(100),
             Column::computed('action')
