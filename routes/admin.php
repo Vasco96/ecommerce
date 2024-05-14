@@ -6,6 +6,7 @@ use App\Http\Controllers\Backend\AdminVendorProfileController;
 use App\Http\Controllers\Backend\BrandController;
 use App\Http\Controllers\Backend\CategoryController;
 use App\Http\Controllers\Backend\ChildCategoryController;
+use App\Http\Controllers\Backend\FlashSaleController;
 use App\Http\Controllers\Backend\ProductController;
 use App\Http\Controllers\Backend\ProductImageGalleryController;
 use App\Http\Controllers\Backend\ProductVariantController;
@@ -67,6 +68,13 @@ Route::delete('products-variant-item/{variantItemId}', [ProductVariantItemContro
 
 /** Vendor product routes */
 Route::get('vendor-products', [AdminVendorProductController::class, 'index'])->name('vendor-products.index');
+Route::get('vendor-pending-products', [AdminVendorProductController::class, 'pendingProducts'])->name('vendor-pending-products.index');
+Route::put('change-approved-status', [AdminVendorProductController::class, 'changeApproveStatus'])->name('change-approved-status');
+
+/** Flash sale routes */
+Route::get('flash-sale', [FlashSaleController::class, 'index'])->name('flash-sale.index');
+Route::put('flash-sale', [FlashSaleController::class, 'update'])->name('flash-sale.update');
+
 
 
 

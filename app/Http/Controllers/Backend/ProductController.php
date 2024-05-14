@@ -141,7 +141,6 @@ class ProductController extends Controller
         $product->thumb_image = empty(!$imagePath) ? $imagePath : $product->thumb_image;
         $product->name = $request->name;
         $product->slug = generateUniqueSlug('Product', $request->name);
-        $product->vendor_id = Auth::user()->vendor->id;
         $product->category_id = $request->category;
         $product->sub_category_id = $request->sub_category;
         $product->child_category_id = $request->child_category;
@@ -157,7 +156,6 @@ class ProductController extends Controller
         $product->offer_end_date = $request->offer_end_date;
         $product->product_type = $request->product_type;
         $product->status = $request->status;
-        $product->is_approved = 1;
         $product->seo_title = $request->seo_title;
         $product->seo_description = $request->seo_description;
         $product->save();
@@ -174,7 +172,7 @@ class ProductController extends Controller
     {
         try {
             $product = Product::findOrFail($id);
-            
+
             $this->deleteImage($product->thumb_image);
 
             $galleryImages = ProductImageGallery::where('product_id', $product->id)->get();

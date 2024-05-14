@@ -29,22 +29,34 @@
             <li class="dropdown {{ setSidebarActive([
                 'admin.brand.*',
                 'admin.products.*',
-                'admin.vendor-products.index'
+                'admin.products-image-gallery.*',
+                'admin.products-variant.*',
+                'admin.products-variant-item.*',
+                'admin.vendor-products.index',
+                'admin.vendor-pending-products.index'
                 ]) }}">
                 <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-columns"></i>
                     <span>Manage Products</span></a>
                 <ul class="dropdown-menu">
                     <li class="{{ setSidebarActive(['admin.brand.*']) }}"><a class="nav-link" href="{{ route('admin.brand.index') }}">Brands</a></li>
-                    <li class="{{ setSidebarActive(['admin.products.*']) }}"><a class="nav-link" href="{{ route('admin.products.index') }}">Products</a></li>
+                    <li class="{{ setSidebarActive([
+                        'admin.products.*',
+                        'admin.products-image-gallery.*',
+                        'admin.products-variant.*',
+                        'admin.products-variant-item.*'
+                        ]) }}"><a class="nav-link" href="{{ route('admin.products.index') }}">Products</a></li>
                     <li class="{{ setSidebarActive(['admin.vendor-products.index']) }}"><a class="nav-link" href="{{ route('admin.vendor-products.index') }}">Vendor Products</a></li>
+                    <li class="{{ setSidebarActive(['admin.vendor-pending-products.index']) }}"><a class="nav-link" href="{{ route('admin.vendor-pending-products.index') }}">Vendor Pending Products</a></li>
                 </ul>
             </li>
             <li class="dropdown {{ setSidebarActive([
-                'admin.vendor-profile.index'
+                'admin.vendor-profile.index',
+                'admin.flash-sale.index'
                 ]) }}">
                 <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-columns"></i>
                     <span>Ecommerce</span></a>
                 <ul class="dropdown-menu">
+                    <li class="{{ setSidebarActive(['admin.flash-sale.index']) }}"><a class="nav-link" href="{{ route('admin.flash-sale.index') }}">Flash Sale</a></li>
                     <li class="{{ setSidebarActive(['admin.vendor-profile.index']) }}"><a class="nav-link" href="{{ route('admin.vendor-profile.index') }}">Vendor Profile</a></li>
                 </ul>
             </li>

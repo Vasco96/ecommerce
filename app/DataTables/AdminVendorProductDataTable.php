@@ -76,12 +76,13 @@ class AdminVendorProductDataTable extends DataTable
                 return $button;
             })
             ->addColumn('approved', function ($query) {
-                if ($query->is_approved == 1) {
-
-                    return '<i class="badge bg-success">Approved</i>';
-                } else {
-                    return '<i class="badge bg-warning">Pending</i>';
-                }
+                return "<select class='form-control is_approved' data-id='$query->id'>
+                <option  value='0'>Pending</option>
+                <option selected value='1'>Approved</option>
+                </select>";
+            })
+            ->addColumn('vendor', function ($query) {
+                return $query->vendor->shop_name;
             })
             ->rawColumns(['action', 'image', 'type', 'status', 'approved'])
             ->setRowId('id');
@@ -92,7 +93,9 @@ class AdminVendorProductDataTable extends DataTable
      */
     public function query(Product $model): QueryBuilder
     {
-        return $model->where('vendor_id', '!=', Auth::user()->vendor->id)->newQuery();
+        return $model->where('vendor_id', '!=', Auth::user()->vendor->id)
+        ->where('is_approved', 1)
+        ->newQuery();
     }
 
     /**
@@ -124,11 +127,13 @@ class AdminVendorProductDataTable extends DataTable
     {
         return [
             Column::make('id')->width(100),
+            Column::make('vendor'),
             Column::make('image')->width(200),
             Column::make('name'),
             Column::make('price'),
             Column::make('type')->width(150),
             Column::make('status')->width(100),
+            Column::make('approved')->width(150),
             Column::computed('action')
                 ->exportable(false)
                 ->printable(false)

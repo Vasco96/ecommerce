@@ -3,14 +3,14 @@
 @section('content')
     <section class="section">
         <div class="section-header">
-            <h1>Vendors Product</h1>
+            <h1>Vendors Pending Product</h1>
         </div>
         <div class="section-body">
             <div class="row">
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header">
-                            <h4>All Vendor Products</h4>
+                            <h4>All Vendor Pending Products</h4>
                         </div>
                         <div class="card-body">
                             {{ $dataTable->table() }}
@@ -39,7 +39,7 @@
                     },
                     success: function(response) {
                         toastr.success(response.message);
-                        $('#adminvendorproduct-table').DataTable().draw();
+                        $('#adminvendorpendingproduct-table').DataTable().draw();
                     },
                     error: function(xhr, status, error) {
                         let errors = xhr.responseJSON.errors;
@@ -67,7 +67,7 @@
                     },
                     success: function(response) {
                         toastr.success(response.message);
-                        $('#adminvendorproduct-table').DataTable().draw();
+                        $('#adminvendorpendingproduct-table').DataTable().draw();
                     },
                     error: function(xhr, status, error) {
                         let errors = xhr.responseJSON.errors;
@@ -80,6 +80,7 @@
 
 
             })
+
         })
     </script>
 @endpush
