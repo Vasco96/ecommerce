@@ -15,6 +15,7 @@ use App\Http\Controllers\Backend\ProfileController;
 use App\Http\Controllers\Backend\SliderController;
 use App\Http\Controllers\Backend\SubCategoryController;
 use App\Models\ChildCategory;
+use App\Models\FlashSaleItem;
 use App\Models\SubCategory;
 use Illuminate\Support\Facades\Route;
 
@@ -74,6 +75,10 @@ Route::put('change-approved-status', [AdminVendorProductController::class, 'chan
 /** Flash sale routes */
 Route::get('flash-sale', [FlashSaleController::class, 'index'])->name('flash-sale.index');
 Route::put('flash-sale', [FlashSaleController::class, 'update'])->name('flash-sale.update');
+Route::post('flash-sale/add-product', [FlashSaleController::class, 'addProduct'])->name('flash-sale.add-product');
+Route::put('flash-sale/show-at-home/change-status', [FlashSaleController::class, 'changeShowAtHome'])->name('flash-sale.show-at-home.change-status');
+Route::put('flash-sale/status/change-status', [FlashSaleController::class, 'changeStatus'])->name('flash-sale.status.change-status');
+Route::delete('flash-sale-item/{flashSaleItemId}', [FlashSaleController::class, 'destroy'])->name('flash-sale-item.destroy');
 
 
 

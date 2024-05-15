@@ -22,7 +22,42 @@ class FlashSaleItemDataTable extends DataTable
     public function dataTable(QueryBuilder $query): EloquentDataTable
     {
         return (new EloquentDataTable($query))
-            ->addColumn('action', 'flashsaleitem.action')
+        ->addColumn('action', function ($query) {
+            $deleteBtn = "<a href='" . route('admin.flash-sale-item.destroy', $query->id) . "' class='btn btn-danger ml-2 delete-item'><i class='far fa-trash-alt'></i></a>";
+            return $deleteBtn;
+        })
+        ->addColumn('product_name', function ($query) {
+            return "<a href='".route('admin.products.edit', $query->product->id)."'>".$query->product->name."</a>";
+        })
+        ->addColumn('show_at_home', function ($query) {
+            if ($query->show_at_home == 1) {
+                $button = '<label class="custom-switch mt-2">
+                            <input type="checkbox" checked name="custom-switch-checkbox" data-id="' . $query->id . '" class="custom-switch-input change-show-at-home">
+                            <span class="custom-switch-indicator"></span>
+                        </label>';
+            } else {
+                $button = '<label class="custom-switch mt-2">
+                            <input type="checkbox" name="custom-switch-checkbox" data-id="' . $query->id . '" class="custom-switch-input change-show-at-home">
+                            <span class="custom-switch-indicator"></span>
+                        </label>';
+            }
+            return $button;
+        })
+        ->addColumn('status', function ($query) {
+            if ($query->status == 1) {
+                $button = '<label class="custom-switch mt-2">
+                            <input type="checkbox" checked name="custom-switch-checkbox" data-id="' . $query->id . '" class="custom-switch-input change-status">
+                            <span class="custom-switch-indicator"></span>
+                        </label>';
+            } else {
+                $button = '<label class="custom-switch mt-2">
+                            <input type="checkbox" name="custom-switch-checkbox" data-id="' . $query->id . '" class="custom-switch-input change-status">
+                            <span class="custom-switch-indicator"></span>
+                        </label>';
+            }
+            return $button;
+        })
+        ->rawColumns(['action', 'status', 'show_at_home', 'product_name'])
             ->setRowId('id');
     }
 
@@ -44,7 +79,7 @@ class FlashSaleItemDataTable extends DataTable
                     ->columns($this->getColumns())
                     ->minifiedAjax()
                     //->dom('Bfrtip')
-                    ->orderBy(1)
+                    ->orderBy(0)
                     ->selectStyleSingle()
                     ->buttons([
                         Button::make('excel'),
@@ -62,15 +97,16 @@ class FlashSaleItemDataTable extends DataTable
     public function getColumns(): array
     {
         return [
+
+            Column::make('id'),
+            Column::make('product_name'),
+            Column::make('show_at_home'),
+            Column::make('status'),
             Column::computed('action')
                   ->exportable(false)
                   ->printable(false)
-                  ->width(60)
+                  ->width(150)
                   ->addClass('text-center'),
-            Column::make('id'),
-            Column::make('add your columns'),
-            Column::make('created_at'),
-            Column::make('updated_at'),
         ];
     }
 
