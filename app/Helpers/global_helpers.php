@@ -161,13 +161,12 @@ if (!function_exists('currencyPosition')) {
 if (!function_exists('setSidebarActive')) {
     function setSidebarActive(array $routes)
     {
-        foreach($routes as $route){
-            if(request()->routeIs($route)){
+        foreach ($routes as $route) {
+            if (request()->routeIs($route)) {
                 return 'active';
             }
         }
         return '';
-
     }
 }
 
@@ -178,10 +177,45 @@ if (!function_exists('checkDiscount')) {
     {
         $currentDate = date('Y-m-d');
 
-        if(($product->offer_price > 0) && ($currentDate >= $product->offer_start_date) && ($currentDate <= $product->offer_end_date)){
+        if (($product->offer_price > 0) && ($currentDate >= $product->offer_start_date) && ($currentDate <= $product->offer_end_date)) {
 
             return true;
         }
         return false;
+    }
+}
+
+/** calculate discount percent*/
+
+if (!function_exists('calculateDiscountPercent')) {
+    function calculateDiscountPercent($originalPrice, $discountPrice)
+    {
+        $result = (($originalPrice - $discountPrice) / $originalPrice) * 100;
+        return round($result, 0);
+    }
+}
+
+/** Check the product type*/
+
+if (!function_exists('productType')) {
+    function productType(string $type): string
+    {
+        switch ($type) {
+            case 'new_arrival':
+                return 'New';
+                break;
+            case 'featured_product':
+                return 'Featured';
+                break;
+            case 'top_product':
+                return 'Top';
+                break;
+            case 'best_product':
+                return 'Best';
+                break;
+            default:
+                return '';
+                break;
+        }
     }
 }
